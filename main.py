@@ -11,7 +11,7 @@ def try_again():
    try_again.2 = random.choice(num)
    thing=label(app, text="test")
     
-# def submit?
+# def submit
 
 # def result
 
