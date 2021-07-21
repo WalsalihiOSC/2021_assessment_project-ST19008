@@ -18,3 +18,5 @@ def try_again():
 app.geometry("300x300")
 start = Button(app, text="Start", command=try_again)
 start.place(relx=0.5, rely=1)
+
+app.mainloop()
