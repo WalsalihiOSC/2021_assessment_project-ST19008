@@ -24,8 +24,9 @@ class landing:
         self.landing = Frame(root)
         self.landing.grid()
 
-        mylabel = Label(self.landing, text="Maths Helper")
-        username = Entry(self.landing, text="Username: ")
+        mylabel = Label(self.landing, text="Maths Helper").grid(column=1,row=1,sticky=W)
+        username = Entry(self.landing, text="Username: ").grid(column=2,row=2,sticky=W)
+        Label(self.)
 
 landing()
 root.mainloop()
