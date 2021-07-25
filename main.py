@@ -1,6 +1,5 @@
 import random
 from tkinter import *
-from tkinter import messagebox
 from PIL import ImageTk,Image
 
 num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -13,11 +12,23 @@ num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # add scoreboard at the end
 # add usernames
 
-app = Tk()
-app.title("maths thingy")
+# config
+root = Tk()
+root.title("Maths Helper")
+root.geometry("300x300")
+root.resizable(False,False)
 
-# config/settings
+#Create Class
+class landing:
+    def __init__(self):
+        self.landing = Frame(root)
+        self.landing.grid()
 
+        Label(self.landing, text="Maths Helper")
+        username = Entry(self.landing, text="Username: ",sticky=W)
+
+landing()
+root.mainloop()
 
 def submt(var1):
     if var1.get() == str(resultPLUS()):
@@ -27,12 +38,11 @@ def submt(var1):
         wrong = Label(app, text="wrong")
         wrong.place(relx=0.3, rely=0.2)
 
-# questiion + try again
+# question + try again
 def try_again():
     try_again.num1update = random.choice(num)
     try_again.num2update = random.choice(num)
-    newQ = Label(
-        app, text=f"{try_again.num1update}+{try_again.num2update}")
+    newQ = Label(app, text=f"{try_again.num1update}+{try_again.num2update}")
     newQ.place(relx=0.16, rely=0.14, relwidth=0.7, relheight=0.23)
 
 
@@ -40,24 +50,19 @@ def resultPLUS():
     try_again
     return try_again.num1update + try_again.num2update
 
+#app.geometry("300x300")
+#app.resizable(False, False)
+#start = Button(app, text="Start",command= try_again)
+#start.place(relx=0.45, rely=0.2)
 
-class landing:
-    def __init__(self):
-        Label(self.landing,text="Maths Helper")
-        username = Entry(self.landing, text="Username:")
-        pass
+#solving = Entry(app)
+#solving.place(relx=0.35, rely=0.4, relwidth=0.34, relheight=0.23)
+#submit = Button(app, text="Submit", command=lambda: submt(solving))
+#submit.place(relx=0.35, rely=0.64, relwidth=0.34, relheight=0.23)
+#try_again = Button(app, text="Try Again", command=try_again)
+#try_again.place(relx=0.39, rely=0.9)
 
-app.geometry("300x300")
-app.resizable(False, False)
-start = Button(app, text="Start",command= try_again)
-start.place(relx=0.45, rely=0.2)
+# config/settings
+#root.title("Maths Helper")
 
-solving = Entry(app)
-solving.place(relx=0.35, rely=0.4, relwidth=0.34, relheight=0.23)
-submit = Button(app, text="Submit", command=lambda: submt(solving))
-submit.place(relx=0.35, rely=0.64, relwidth=0.34, relheight=0.23)
-try_again = Button(app, text="Try Again", command=try_again)
-try_again.place(relx=0.39, rely=0.9)
 
-landing()
-app.mainloop() # call
