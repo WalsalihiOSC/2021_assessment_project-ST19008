@@ -1,5 +1,6 @@
 import random
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk,Image
 
 num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -43,7 +44,7 @@ def resultPLUS():
 class landing:
     def __init__(self):
         Label(self.landing,text="Maths Helper")
-        username = Entry(self.landing,)
+        username = Entry(self.landing, text="Username:")
         pass
 
 app.geometry("300x300")
@@ -57,4 +58,6 @@ submit = Button(app, text="Submit", command=lambda: submt(solving))
 submit.place(relx=0.35, rely=0.64, relwidth=0.34, relheight=0.23)
 try_again = Button(app, text="Try Again", command=try_again)
 try_again.place(relx=0.39, rely=0.9)
+
+landing()
 app.mainloop() # call
