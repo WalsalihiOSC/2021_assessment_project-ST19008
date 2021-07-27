@@ -17,65 +17,89 @@ root = Tk()
 root.title("Maths Helper")
 root.geometry("400x300")
 root.resizable(False,False)
+root['bg'] = '#A288E3'
 
 #Create Class
 class landing:
     def __init__(self):
         self.landing = Frame(root)
         self.landing.grid()
+        self.landing['bg'] = '#A288E3'
 
-        a = Label(self.landing, text="Maths Helper", font="Arial 40 bold")
+        a = Label(self.landing, text="Maths Helper", font="fixedsys 40 bold", background="#A288E3")
         a.grid(column=0,row=0)
         
         def printValue():
             pname = player_name.get()
-            Label(self.landing, text=f'Welcome, {pname}').grid(column=0,row=5)
+            Label(self.landing, text=f'Welcome, {pname}!', font="fixedsys",background="#A288E3").grid(column=0,row=5)
 
-            next = Button(self.landing, text="Next", command=levelselectionbutton())
+            write=open("write.txt","a")
+
+            write.write(f'{pname}\n')
+
+            write.write("\n")
+
+            write.close()
+
+            next = Button(self.landing, text="Next", font="fixedsys",command=levelselectionbutton)
             next.grid(column=0,row=7)
 
-
-        player_name = Entry(self.landing)
+        player_name = Entry(self.landing, font="fixedsys")
         player_name.grid(column=0,row=3)
 
-        b = Label(self.landing, text="Enter your name:", font="Arial")
+        b = Label(self.landing, text="Enter your name:", font="fixedsys", background='#A288E3')
         b.grid(column=0,row=2)
 
-        Button(self.landing, text="Next", padx=10, pady=5,command=printValue).grid(column=0,row=4)
-
+        Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
         def levelselectionbutton():
             self.landing.grid_forget()
-        
-            self.levelselection = Frame()
-        
-            self.levelselection.grid()
+            levelselection = Frame(root)
+            levelselection.grid()
+            levelselection['bg'] = '#A288E3'
 
-            Label(self.levelselection, text="eeee")
+            a = Label(levelselection, text=f"Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
+            a.grid(column=0,row=0)
+
+            levelone = Button(levelselection,text="Level 1", font="fixedsys")
+            levelone.grid(column=0,row=2)
+
+            leveltwo = Button(levelselection,text="Level 1", font="fixedsys")
+            leveltwo.grid(column=0,row=2)
+
+            levelthree = Button(levelselection,text="Level 1", font="fixedsys")
+            levelthree.grid(column=0,row=2)
+
+
+
+
+
+
+
 
 
 
 landing()
 root.mainloop()
 
-def submt(var1):
-    if var1.get() == str(resultPLUS()):
-        correct = Label(app, text="correct! hell yeah")
-        correct.place(relx=0.3, rely=0.2)
-    else:
-        wrong = Label(app, text="wrong")
-        wrong.place(relx=0.3, rely=0.2)
+#def submt(var1):
+#    if var1.get() == str(resultPLUS()):
+#        correct = Label(app, text="correct! hell yeah")
+#        correct.place(relx=0.3, rely=0.2)
+#    else:
+#        wrong = Label(app, text="wrong")
+#        wrong.place(relx=0.3, rely=0.2)
 
 # question + try again
-def try_again():
-    try_again.num1update = random.choice(num)
-    try_again.num2update = random.choice(num)
-    newQ = Label(app, text=f"{try_again.num1update}+{try_again.num2update}")
-    newQ.place(relx=0.16, rely=0.14, relwidth=0.7, relheight=0.23)
+#def try_again():
+#    try_again.num1update = random.choice(num)
+#    try_again.num2update = random.choice(num)
+#    newQ = Label(app, text=f"{try_again.num1update}+{try_again.num2update}")
+#    newQ.place(relx=0.16, rely=0.14, relwidth=0.7, relheight=0.23)
 
 
-def resultPLUS():
-    try_again
-    return try_again.num1update + try_again.num2update
+#def resultPLUS():
+#    try_again
+#    return try_again.num1update + try_again.num2update
 
 #app.geometry("300x300")
 #app.resizable(False, False)
