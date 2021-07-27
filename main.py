@@ -57,17 +57,30 @@ class landing:
             levelselection.grid()
             levelselection['bg'] = '#A288E3'
 
-            a = Label(levelselection, text=f"Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
+            a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=0)
 
-            levelone = Button(levelselection,text="Level 1", font="fixedsys")
+            def lvlone():
+                levelselection.grid_forget()
+                lvlone = Frame(root)
+                lvlone.grid()
+                lvlone['bg'] = '#A288E3'
+
+                Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
+
+            def lvltwo():
+                levelselection.grid_forget()
+                lvltwo = Frame(root)
+                lvltwo.grid()
+                lvltwo['bg'] = '#A288E3'
+
+                Label(lvltwo, text="Level two", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
+
+            levelone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlone)
             levelone.grid(column=0,row=2)
 
-            leveltwo = Button(levelselection,text="Level 1", font="fixedsys")
-            leveltwo.grid(column=0,row=2)
-
-            levelthree = Button(levelselection,text="Level 1", font="fixedsys")
-            levelthree.grid(column=0,row=2)
+            levelone = Button(levelselection,text="Level 2", font="fixedsys",command=lvltwo)
+            levelone.grid(column=0,row=3)
 
 
 
