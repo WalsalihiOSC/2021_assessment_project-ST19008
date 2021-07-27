@@ -1,5 +1,5 @@
 import random
-from tkinter import *
+from tkinter import * 
 from PIL import ImageTk,Image
 
 num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -15,7 +15,7 @@ num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # config
 root = Tk()
 root.title("Maths Helper")
-root.geometry("300x300")
+root.geometry("400x300")
 root.resizable(False,False)
 
 #Create Class
@@ -24,9 +24,35 @@ class landing:
         self.landing = Frame(root)
         self.landing.grid()
 
-        mylabel = Label(self.landing, text="Maths Helper").grid(column=1,row=1,sticky=W)
-        username = Entry(self.landing, text="Username: ").grid(column=2,row=2,sticky=W)
-        Label(self.)
+        a = Label(self.landing, text="Maths Helper", font="Arial 40 bold")
+        a.grid(column=0,row=0)
+        
+        def printValue():
+            pname = player_name.get()
+            Label(self.landing, text=f'Welcome, {pname}').grid(column=0,row=5)
+
+            next = Button(self.landing, text="Next", command=levelselectionbutton())
+            next.grid(column=0,row=7)
+
+
+        player_name = Entry(self.landing)
+        player_name.grid(column=0,row=3)
+
+        b = Label(self.landing, text="Enter your name:", font="Arial")
+        b.grid(column=0,row=2)
+
+        Button(self.landing, text="Next", padx=10, pady=5,command=printValue).grid(column=0,row=4)
+
+        def levelselectionbutton():
+            self.landing.grid_forget()
+        
+            self.levelselection = Frame()
+        
+            self.levelselection.grid()
+
+            Label(self.levelselection, text="eeee")
+
+
 
 landing()
 root.mainloop()
