@@ -64,7 +64,7 @@ class landing:
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=0)
 
-            def lvlone():
+            def lvlone(): # LEVEL ONE (ADDITION AND SUBTRATION)
                 levelselection.grid_forget()
                 lvlone = Frame(root)
                 lvlone.grid()
@@ -72,36 +72,7 @@ class landing:
 
                 Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
 
-                def submt(var1):
-                    if var1.get() == str(resultPLUS()):
-                        correct = Label(lvlone, text="correct! hell yeah")
-                        correct.place(relx=0.3, rely=0.2)
-                    else:
-                        wrong = Label(lvlone, text="wrong")
-                        wrong.place(relx=0.3, rely=0.2)
 
-                def try_again():
-                    try_again.num1update = random.choice(num)
-                    try_again.num2update = random.choice(num)
-                    newQ = Label(lvlone, text=f"{try_again.num1update}+{try_again.num2update}")
-                    newQ.place(relx=0.16, rely=0.14, relwidth=0.7, relheight=0.23)
-
-
-                def resultPLUS():
-                    try_again
-                    return try_again.num1update + try_again.num2update
-
-                lvlone.geometry("300x300")
-                lvlone.resizable(False, False)
-                start = Button(lvlone, text="Start",command= try_again)
-                start.place(relx=0.45, rely=0.2)
-
-                solving = Entry(lvlone)
-                solving.place(relx=0.35, rely=0.4, relwidth=0.34, relheight=0.23)
-                submit = Button(lvlone, text="Submit", command=lambda: submt(solving))
-                submit.place(relx=0.35, rely=0.64, relwidth=0.34, relheight=0.23)
-                try_again = Button(lvlone, text="Try Again", command=try_again)
-                try_again.place(relx=0.39, rely=0.9)
 
             def lvltwo():
                 levelselection.grid_forget()
