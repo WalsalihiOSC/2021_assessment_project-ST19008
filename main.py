@@ -4,15 +4,6 @@ from tkinter import messagebox
 from PIL import ImageTk,Image
 
 num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-# notes
-# basic q+a, answer checking DONE
-# issue somewhere after line 26
-# transfer to different screens 
-# add logo on screens
-# add scoreboard at the end
-# add usernames
-
 # config
 root = Tk()
 root.title("Maths Helper")
@@ -64,7 +55,7 @@ class landing:
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=0)
 
-            def lvlone(): # LEVEL ONE (ADDITION AND SUBTRATION)
+            def lvlone(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
                 levelselection.grid_forget()
                 lvlone = Frame(root)
                 lvlone.grid()
@@ -74,7 +65,7 @@ class landing:
 
 
 
-            def lvltwo():
+            def lvltwo(): # LEVEL TWO (Two digit addition and subtraction, worth 2 points per question)
                 levelselection.grid_forget()
                 lvltwo = Frame(root)
                 lvltwo.grid()
@@ -82,7 +73,7 @@ class landing:
 
                 Label(lvltwo, text="Level two", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=2,sticky=W)
 
-            def lvlthree():
+            def lvlthree(): # LEVEL THREE (One digit multiplication, worth 3 points per question)
                 levelselection.grid_forget()
                 lvlthree = Frame(root)
                 lvlthree.grid()
@@ -105,13 +96,7 @@ class landing:
 
 
 
-
+# Call
 landing()
 root.mainloop()
-
-
-
-#config/settings
-root.title("Maths Helper")
-
 
