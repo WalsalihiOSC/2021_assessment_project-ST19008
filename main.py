@@ -3,7 +3,6 @@ from tkinter import messagebox # import messagebox
 from PIL import ImageTk,Image # import imagetk
 from time import * # import time
 import random as rand # import random
-from random import *
 
 # config
 root = Tk()
@@ -52,18 +51,37 @@ class landing: # landing frame
                 lvlone['bg'] = '#A288E3'
                 Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
 
-                num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
                 a = rand.randrange(1,10,1)
                 b = rand.randrange(1,10,1)
 
                 samplequestion = Label(lvlone, text=f'{a} + {b} =', font="fixedsys 20 bold", background='#A288E3')
                 samplequestion.grid(column=1,row=3,sticky=W)
 
+                def answercheck():
+                    c = a + b
+                    score = 0
+                    d = answer.get()
+                    d = int(d)
+                    c = int(c)
+                    if d == c:
+                        score = score + 1
+                        Label(lvlone, text=f"Correct! You have {score} points.").grid(column=2,row=3)
+                    else: # incorrect 
+                        score = score - 1
+                        Label(lvlone, text=f"Incorrect, the answer was {c}. You have {score} points.").grid(column=2,row=3)
+                        Label(lvlone, text=f"You answered: {d}.").grid(column=2,row=5)
+                        return score
+
+                def submit():
+                    answercheck()
+                    nextquestion = Button(lvlone, text="Next Question")
+                    nextquestion.grid(column=1,row=5)
                 answer = Entry(lvlone)
                 answer.grid(column=2,row=3)
 
-                ansubmit = Button(lvlone, text="Confirm")
+                ansubmit = Button(lvlone, text="Confirm", command=submit)
                 ansubmit.grid(column=1,row=4)
+
 
 
             def lvltwo(): # LEVEL TWO (Two digit addition and subtraction, worth 2 points per question)
