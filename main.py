@@ -43,7 +43,7 @@ class landing: # landing frame
             levelselection['bg'] = '#A288E3'
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=0)
-
+            
             def lvlonee(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
 
                 levelselection.grid_forget()
@@ -55,40 +55,54 @@ class landing: # landing frame
                 a = rand.randrange(1,10,1)
                 b = rand.randrange(1,10,1)
 
-                def next():
-                    lvlone.grid_forget()
-                    lvlonee()
+                global score
+                score = 0
+                global playcount
+                playcount = 0
+                while True:
+                    Label(lvlone, text=f"You have answered {playcount} questions.").grid(column=2,row=7)
+                    playcount = playcount + 1
+                    def questions():
+
+                        def next(): # next question
+                            lvlone.grid_forget()
+                            lvlonee()
+                        def answercheck(): # check answer and give result
+                            c = a + b
+                            d = answer.get()
+                            global score
+                            d = int(d)
+                            c = int(c)
+                            if d == c:
+                                score += 1
+                                Label(lvlone, text=f"Correct! You have {score} points.").grid(column=2,row=3)
+                            else: # incorrect 
+                                score -= 1
+                                Label(lvlone, text=f"Incorrect, the answer was {c}. You have {score} points.").grid(column=2,row=3)
+                                Label(lvlone, text=f"You answered: {d}.").grid(column=2,row=5)
+                                return score           
+                        def submit(): # submit answer, call answercheck
+                            answercheck()
+                            nextquestion = Button(lvlone, text="Next Question", command=next)
+                            nextquestion.grid(column=1,row=5)
+                            return score
+                        samplequestion = Label(lvlone, text=f'{a} + {b} =', font="fixedsys 20 bold", background='#A288E3')
+                        samplequestion.grid(column=1,row=3,sticky=W)
+                        answer = Entry(lvlone)
+                        answer.grid(column=2,row=3)
+                        ansubmit = Button(lvlone, text="Confirm", command=submit)
+                        ansubmit.grid(column=1,row=4)
+                        return next, score
+                    questions()
+
+                    if playcount == 5:
+                        break
+                    else: 
+                        break 
 
 
-                samplequestion = Label(lvlone, text=f'{a} + {b} =', font="fixedsys 20 bold", background='#A288E3')
-                samplequestion.grid(column=1,row=3,sticky=W)
-
-                def answercheck():
-                    c = a + b
-                    score = 0
-                    d = answer.get()
-                    d = int(d)
-                    c = int(c)
-                    if d == c:
-                        score = score + 1
-                        Label(lvlone, text=f"Correct! You have {score} points.").grid(column=2,row=3)
-                    else: # incorrect 
-                        score = score - 1
-                        Label(lvlone, text=f"Incorrect, the answer was {c}. You have {score} points.").grid(column=2,row=3)
-                        Label(lvlone, text=f"You answered: {d}.").grid(column=2,row=5)
-                        return score
-
-                def submit():
-                    answercheck()
-                    nextquestion = Button(lvlone, text="Next Question", command=next)
-                    nextquestion.grid(column=1,row=5)
 
 
-                answer = Entry(lvlone)
-                answer.grid(column=2,row=3)
-
-                ansubmit = Button(lvlone, text="Confirm", command=submit)
-                ansubmit.grid(column=1,row=4)
 
 
 
