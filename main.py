@@ -44,7 +44,8 @@ class landing: # landing frame
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=0)
 
-            def lvlone(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
+            def lvlonee(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
+
                 levelselection.grid_forget()
                 lvlone = Frame(root)
                 lvlone.grid()
@@ -53,6 +54,11 @@ class landing: # landing frame
 
                 a = rand.randrange(1,10,1)
                 b = rand.randrange(1,10,1)
+
+                def next():
+                    lvlone.grid_forget()
+                    lvlonee()
+
 
                 samplequestion = Label(lvlone, text=f'{a} + {b} =', font="fixedsys 20 bold", background='#A288E3')
                 samplequestion.grid(column=1,row=3,sticky=W)
@@ -74,8 +80,10 @@ class landing: # landing frame
 
                 def submit():
                     answercheck()
-                    nextquestion = Button(lvlone, text="Next Question")
+                    nextquestion = Button(lvlone, text="Next Question", command=next)
                     nextquestion.grid(column=1,row=5)
+
+
                 answer = Entry(lvlone)
                 answer.grid(column=2,row=3)
 
@@ -98,7 +106,7 @@ class landing: # landing frame
                 lvlthree['bg'] = '#A288E3'
                 Label(lvlthree, text="Level three", font='fixedsys 20 bold', background='#A288D3').grid(column=1,row=3,sticky=W)
 
-            lvlone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlone)
+            lvlone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlonee)
             lvlone.grid(column=0,row=2)
             leveltwo = Button(levelselection,text="Level 2", font="fixedsys",command=lvltwo)
             leveltwo.grid(column=0,row=3)
