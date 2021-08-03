@@ -53,17 +53,14 @@ class landing: # landing frame
                 lvlone['bg'] = '#A288E3'
                 Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
 
-
-
                 global score
                 score = 0
                 global playcount
                 playcount = 0
                 while True:
                     Label(lvlone, text=f"You have answered {playcount} questions.").grid(column=2,row=7)
+                    playcount += 1
                     def questions():
-                        global playcount
-                        playcount += 1
                         a = rand.randrange(1,10,1)
                         b = rand.randrange(1,10,1)
                         def answercheck(): # check answer and give result
@@ -79,8 +76,7 @@ class landing: # landing frame
                                 return correct
                             else: # incorrect 
                                 score -= 1
-
-                                wrong = Label(lvlone, text=f"Incorrect, the answer was {c}. You have {score} points.").grid(column=2,row=4)
+                                wrong = Label(lvlone, text=f"Incorrect, You have {score} points.").grid(column=2,row=4)
                                 return score
                         def submit(): # submit answer, call answercheck
                             answercheck()
