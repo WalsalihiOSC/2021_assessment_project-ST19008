@@ -80,6 +80,7 @@ class landing: # landing frame
                                 return score
                         def submit(): # submit answer, call answercheck
                             answercheck()
+                            ansubmit.grid_forget()
                             nextquestion = Button(lvlone, text="Next Question", command=next)
                             nextquestion.grid(column=1,row=5)
                             return score
