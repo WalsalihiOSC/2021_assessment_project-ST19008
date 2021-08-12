@@ -21,8 +21,14 @@ class landing: # landing frame
         a.grid(column=0,row=0)
 
         def printValue():
+
             global pname
             pname = player_name.get()
+            if pname == '':
+                messagebox.showwarning("Error","Enter your username")
+                __init__(self)
+            else:
+                pass
             Label(self.landing, text=f'Welcome, {pname}!', font="fixedsys",background="#A288E3").grid(column=0,row=5)
             write=open("write.txt","a")
             write.write(f'{pname}\n')
@@ -33,7 +39,8 @@ class landing: # landing frame
 
         player_name = Entry(self.landing, font="fixedsys")
         player_name.grid(column=0,row=3)
-        b = Label(self.landing, text="Enter your name:", font="fixedsys", background='#A288E3')
+
+        b = Label(self.landing, text="Enter your username:", font="fixedsys", background='#A288E3')
         b.grid(column=0,row=2)
         
         Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
@@ -105,7 +112,7 @@ class landing: # landing frame
                         levelselectionbutton()
                         lvlone.grid_forget()
                     claimscorebtn = Button(lvlone, text="Return to level selection", command=backlvlone)
-                    claimscorebtn.grid(column=20,row=10,sticky=W)
+                    claimscorebtn.grid(column=20,row=10)
 
                     if playcount == 5:
                         break
@@ -162,7 +169,7 @@ class landing: # landing frame
                     levelselectionbutton()
                     lvltwo.grid_forget()
                 claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
-                claimscorebtn.grid(column=2,row=8)
+                claimscorebtn.grid(column=20,row=10)
 
             def lvlthree(): # LEVEL THREE (One digit multiplication, worth 3 points per question)
                 levelselection.grid_forget()
@@ -214,7 +221,7 @@ class landing: # landing frame
                     levelselectionbutton()
                     lvlthree.grid_forget()
                 claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
-                claimscorebtn.grid(column=2,row=8)
+                claimscorebtn.grid(column=20,row=10)
 
             lvlone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlonee)
             lvlone.grid(column=0,row=2)
