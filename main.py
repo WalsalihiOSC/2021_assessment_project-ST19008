@@ -71,8 +71,8 @@ class landing: # landing frame
                     
                     playcount += 1
                     def questions():
-                        a = rand.randrange(1,10,1)
-                        b = rand.randrange(1,10,1)
+                        a = rand.randrange(1,20,1)
+                        b = rand.randrange(1,20,1)
                         def answercheck(): # check answer and give result
                             c = a + b
                             d = answer.get()
@@ -131,8 +131,8 @@ class landing: # landing frame
                 global playcount
                 playcount = 0
                 def questions():
-                    a = rand.randrange(1,20,1)
-                    b = rand.randrange(1,5,1)
+                    a = rand.randrange(1,10,1)
+                    b = rand.randrange(1,10,1)
                     def answercheck(): # check answer and give result
                         c = a * b
                         d = answer.get()
@@ -183,8 +183,8 @@ class landing: # landing frame
                 global playcount
                 playcount = 0
                 def questions():
-                    a = rand.randrange(1,10,1)
-                    b = rand.randrange(1,10,1)
+                    a = rand.randrange(1,20,1)
+                    b = rand.randrange(1,4,1)
                     def answercheck(): # check answer and give result
                         c = a / b
                         d = answer.get()
@@ -221,7 +221,7 @@ class landing: # landing frame
                     levelselectionbutton()
                     lvlthree.grid_forget()
                 claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
-                claimscorebtn.grid(column=20,row=10)
+                claimscorebtn.grid(column=8,row=10)
 
             lvlone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlonee)
             lvlone.grid(column=0,row=2)
@@ -229,6 +229,14 @@ class landing: # landing frame
             leveltwo.grid(column=0,row=3)
             levelthree = Button(levelselection,text="Level 3", font="fixedsys",command=lvlthree)
             levelthree.grid(column=0,row=4)
+
+            def newuser():
+                levelselection.grid_forget()
+                landing()
+                root.mainloop()
+
+            newuserbtn = Button(levelselection, text="New User", font="fixedsys 20 bold", command=newuser)
+            newuserbtn.grid(column=10,row=10)
 
 
 landing()
