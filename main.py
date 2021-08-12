@@ -10,7 +10,6 @@ root.title("Maths Helper")
 root.geometry("400x300")
 root.resizable(False,False)
 root['bg'] = '#A288E3'
-1
 
 class landing: # landing frame
     def __init__(self):
@@ -19,9 +18,7 @@ class landing: # landing frame
         self.landing['bg'] = '#A288E3'
         a = Label(self.landing, text="Maths Helper", font="fixedsys 40 bold", background="#A288E3")
         a.grid(column=0,row=0)
-
         def printValue():
-
             global pname
             pname = player_name.get()
             if pname == '':
@@ -36,15 +33,12 @@ class landing: # landing frame
             write.close()
             next = Button(self.landing, text="Next", font="fixedsys",command=levelselectionbutton)
             next.grid(column=0,row=7)
-
         player_name = Entry(self.landing, font="fixedsys")
         player_name.grid(column=0,row=3)
-
         b = Label(self.landing, text="Enter your username:", font="fixedsys", background='#A288E3')
         b.grid(column=0,row=2)
-        
-        Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
-
+        usernamenxt = Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
+        self.usernamenxt.bind('<Return>', lambda e: self.usernamenxt.invoke())
         def levelselectionbutton():
             self.landing.grid_forget()
             levelselection = Frame(root)
@@ -54,7 +48,6 @@ class landing: # landing frame
             b.grid(column=0,row=0)
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=1)
-            
             def lvlonee(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
 
                 levelselection.grid_forget()
@@ -122,7 +115,6 @@ class landing: # landing frame
                         break
                     else: 
                         break 
-
             def lvltwo(): # LEVEL TWO (Two digit addition and subtraction, worth 2 points per question)
                 levelselection.grid_forget()
                 lvltwo = Frame(root)
@@ -178,7 +170,6 @@ class landing: # landing frame
                     lvltwo.grid_forget()
                 claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
                 claimscorebtn.grid(column=20,row=10)
-
             def lvlthree(): # LEVEL THREE (One digit multiplication, worth 3 points per question)
                 levelselection.grid_forget()
                 lvlthree = Frame(root)
@@ -234,14 +225,12 @@ class landing: # landing frame
                     lvlthree.grid_forget()
                 claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
                 claimscorebtn.grid(column=8,row=10)
-
             lvlone = Button(levelselection,text="Level 1", font="fixedsys",command=lvlonee)
             lvlone.grid(column=0,row=2)
             leveltwo = Button(levelselection,text="Level 2", font="fixedsys",command=lvltwo)
             leveltwo.grid(column=0,row=3)
             levelthree = Button(levelselection,text="Level 3", font="fixedsys",command=lvlthree)
             levelthree.grid(column=0,row=4)
-
             def newuser():
                 write=open("write.txt","a")
                 write.write(f'********************************')
@@ -250,11 +239,8 @@ class landing: # landing frame
                 levelselection.grid_forget()
                 landing()
                 root.mainloop()
-
             newuserbtn = Button(levelselection, text="New User", font="fixedsys 20 bold", command=newuser)
             newuserbtn.grid(column=10,row=10)
-
-
 landing()
 root.mainloop()
 
