@@ -109,6 +109,10 @@ class landing: # landing frame
                     
                     questions()
                     def backlvlone():
+                        write=open("write.txt","a")
+                        write.write(f'Level one: {score}\n')
+                        write.write("\n")
+                        write.close()
                         levelselectionbutton()
                         lvlone.grid_forget()
                     claimscorebtn = Button(lvlone, text="Return to level selection", command=backlvlone)
@@ -166,6 +170,10 @@ class landing: # landing frame
                     return score
                 questions()
                 def backlvltwo():
+                    write=open("write.txt","a")
+                    write.write(f'Level two: {score}\n')
+                    write.write("\n")
+                    write.close()
                     levelselectionbutton()
                     lvltwo.grid_forget()
                 claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
@@ -218,6 +226,10 @@ class landing: # landing frame
                     return score
                 questions()
                 def backlvlthree():
+                    write=open("write.txt","a")
+                    write.write(f'Level three: {score}\n')
+                    write.write("\n")
+                    write.close()
                     levelselectionbutton()
                     lvlthree.grid_forget()
                 claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
@@ -231,6 +243,10 @@ class landing: # landing frame
             levelthree.grid(column=0,row=4)
 
             def newuser():
+                write=open("write.txt","a")
+                write.write(f'********************************')
+                write.write("\n")
+                write.close()
                 levelselection.grid_forget()
                 landing()
                 root.mainloop()
