@@ -53,7 +53,7 @@ class landing: # landing frame
                 lvlone = Frame(root)
                 lvlone.grid()
                 lvlone['bg'] = '#FFFFFF'
-                Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
+                Label(lvlone, text="Level one: Addition", font="fixedsys 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
                 global score
                 score = 0
                 global playcount
@@ -114,109 +114,123 @@ class landing: # landing frame
                 lvltwo = Frame(root)
                 lvltwo.grid()
                 lvltwo['bg'] = '#FFFFFF'
-                Label(lvltwo, text="Level two", font="fixedsys 20 bold", background='#FFFFFF').grid(column=1,row=2,sticky=W)
+                Label(lvltwo, text="Level two: Multiplication", font="fixedsys 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
                 global score
                 score = 0
                 global playcount
                 playcount = 0
-                def questions():
-                    a = rand.randrange(1,10,1)
-                    b = rand.randrange(1,10,1)
-                    def answercheck(): # check answer and give result
-                        c = a * b
-                        d = answer.get()
-                        global score
-                        d = int(d)
-                        c = int(c)
-                        if d == c:
-                            score += 1
-                            correct = Label(lvltwo, text=f"Correct! You have {score} points.").grid(column=2,row=4)
+                while True:
+                    playcount += 1
+                    def questions():
+                        a = rand.randrange(1,10,1)
+                        b = rand.randrange(1,10,1)
+                        def answercheck(): # check answer and give result
+                            c = a * b
+                            d = answer.get()
+                            global score
+                            d = int(d)
+                            c = int(c)
+                            if d == c:
+                                score += 1
+                                correct = Label(lvltwo, text=f"Correct! You have {score} points.").grid(column=1,row=1,sticky=W)
+                                ansubmit.grid_forget()
+                                return correct, score
+                            else: # incorrect 
+                                score -= 1
+                                Label(lvltwo, text=f"Incorrect, You have {score} points.").grid(column=1,row=1,sticky=W)
+                                return score
+                        def submit(): # submit answer, call answercheck
+                            answercheck()
                             ansubmit.grid_forget()
-                            return correct, score
-                        else: # incorrect 
-                            score -= 1
-                            Label(lvltwo, text=f"Incorrect, You have {score} points.").grid(column=2,row=4)
+                            nextquestion = Button(lvltwo, text="Next Question", width=10,height=2, command=next)
+                            nextquestion.grid(column=1,row=5,sticky=W)
                             return score
-                    def submit(): # submit answer, call answercheck
-                        answercheck()
-                        ansubmit.grid_forget()
-                        nextquestion = Button(lvltwo, text="Next Question", command=next)
-                        nextquestion.grid(column=1,row=5)
+                        def next(): # next question
+                            questions()
+                            samplequestion.grid_forget()
+                            return score
+                        samplequestion = Label(lvltwo, text=f'{a} x {b} =', font="fixedsys 22 bold", background='#FFB703')
+                        samplequestion.grid(column=1,row=3,sticky=W)
+                        answer = Entry(lvltwo, highlightthickness=3,highlightbackground='#FFB703',highlightcolor='#ffd770')
+                        answer.grid(column=2,row=3,ipadx=10,ipady=6,padx=(10,0))
+                        ansubmit = Button(lvltwo, text="Confirm", width=10,height=2, command=submit)
+                        ansubmit.grid(column=1,row=4,sticky=W)
                         return score
-                    def next(): # next question
-                        questions()
-                        return score
-                    samplequestion = Label(lvltwo, text=f'{a} x {b} =', font="fixedsys 20 bold", background='#FFFFFF')
-                    samplequestion.grid(column=1,row=3,sticky=W)
-                    answer = Entry(lvltwo)
-                    answer.grid(column=2,row=3)
-                    ansubmit = Button(lvltwo, text="Confirm", command=submit)
-                    ansubmit.grid(column=1,row=4)
-                    return score
-                questions()
-                def backlvltwo():
-                    write=open("write.txt","a")
-                    write.write(f'Level two: {score}\n')
-                    write.write("\n")
-                    write.close()
-                    levelselectionbutton()
-                    lvltwo.grid_forget()
-                claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
-                claimscorebtn.grid(column=20,row=10)
+                    questions()
+                    def backlvltwo():
+                        write=open("write.txt","a")
+                        write.write(f'Level two: {score}\n')
+                        write.write("\n")
+                        write.close()
+                        levelselectionbutton()
+                        lvltwo.grid_forget()
+                    claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
+                    claimscorebtn.grid(column=2,row=10)
+                    if playcount == 5:
+                        break
+                    else: 
+                        break             
             def lvlthree(): # LEVEL THREE
                 levelselection.grid_forget()
                 lvlthree = Frame(root)
                 lvlthree.grid()
                 lvlthree['bg'] = '#FFFFFF'
-                Label(lvlthree, text="Level three", font='fixedsys 20 bold', background='#FFFFFF').grid(column=1,row=2,sticky=W)
+                Label(lvlthree, text="Level three: Division", font="fixedsys 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
                 global score
                 score = 0
                 global playcount
                 playcount = 0
-                def questions():
-                    a = rand.randrange(1,20,1)
-                    b = rand.randrange(1,4,1)
-                    def answercheck(): # check answer and give result
-                        c = a / b
-                        d = answer.get()
-                        global score
-                        d = int(d)
-                        c = int(c)
-                        if d == c:
-                            score += 1
-                            correct = Label(lvlthree, text=f"Correct! You have {score} points.").grid(column=2,row=4)
+                while True:
+                    playcount += 1
+                    def questions():
+                        a = rand.randrange(1,20,1)
+                        b = rand.randrange(1,5,1)
+                        def answercheck(): # check answer and give result
+                            c = a / b
+                            d = answer.get()
+                            global score
+                            d = int(d)
+                            c = int(c)
+                            if d == c:
+                                score += 1
+                                correct = Label(lvlthree, text=f"Correct! You have {score} points.").grid(column=1,row=1,sticky=W)
+                                ansubmit.grid_forget()
+                                return correct, score
+                            else: # incorrect 
+                                score -= 1
+                                Label(lvlthree, text=f"Incorrect, You have {score} points.").grid(column=1,row=1,sticky=W)
+                                return score
+                        def submit(): # submit answer, call answercheck
+                            answercheck()
                             ansubmit.grid_forget()
-                            return correct, score
-                        else: # incorrect 
-                            score -= 1
-                            Label(lvlthree, text=f"Incorrect, You have {score} points.").grid(column=2,row=4)
+                            nextquestion = Button(lvlthree, text="Next Question", width=10,height=2, command=next)
+                            nextquestion.grid(column=1,row=5,sticky=W)
                             return score
-                    def submit(): # submit answer, call answercheck
-                        answercheck()
-                        ansubmit.grid_forget()
-                        nextquestion = Button(lvlthree, text="Next Question", command=next)
-                        nextquestion.grid(column=1,row=5)
+                        def next(): # next question
+                            questions()
+                            samplequestion.grid_forget()
+                            return score
+                        samplequestion = Label(lvlthree, text=f'{a} ÷ {b} =', font="fixedsys 22 bold", background='#FFB703')
+                        samplequestion.grid(column=1,row=3,sticky=W)
+                        answer = Entry(lvlthree, highlightthickness=3,highlightbackground='#FFB703',highlightcolor='#ffd770')
+                        answer.grid(column=2,row=3,ipadx=10,ipady=6,padx=(10,0))
+                        ansubmit = Button(lvlthree, text="Confirm", width=10,height=2, command=submit)
+                        ansubmit.grid(column=1,row=4,sticky=W)
                         return score
-                    def next(): # next question
-                        questions()
-                        return score
-                    samplequestion = Label(lvlthree, text=f'{a} ÷ {b} =', font="fixedsys 20 bold", background='#FFFFFF')
-                    samplequestion.grid(column=1,row=3,sticky=W)
-                    answer = Entry(lvlthree)
-                    answer.grid(column=2,row=3)
-                    ansubmit = Button(lvlthree, text="Confirm", command=submit)
-                    ansubmit.grid(column=1,row=4)
-                    return score
-                questions()
-                def backlvlthree():
-                    write=open("write.txt","a")
-                    write.write(f'Level three: {score}\n')
-                    write.write("\n")
-                    write.close()
-                    levelselectionbutton()
-                    lvlthree.grid_forget()
-                claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
-                claimscorebtn.grid(column=8,row=10)
+                    questions()
+                    def backlvlthree():
+                        write=open("write.txt","a")
+                        write.write(f'Level one: {score}\n')
+                        write.write("\n")
+                        write.close()
+                        levelselectionbutton()
+                        lvlthree.grid_forget()
+                    claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
+                    claimscorebtn.grid(column=2,row=10)                    
+                    if playcount == 5:
+                        break
+                    else: 
+                        break 
             lvlone = Button(levelselection,text="Level 1", font="fixedsys", activebackground='#FFB703', command=lvlonee)
             lvlone.grid(column=0,row=2,pady=(10,0))
             leveltwo = Button(levelselection,text="Level 2", font="fixedsys", activebackground='#FFB703', command=lvltwo)
