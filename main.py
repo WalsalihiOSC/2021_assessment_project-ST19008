@@ -1,3 +1,4 @@
+from os import write
 from tkinter import * # import tkinter
 from tkinter import messagebox # import messagebox
 from PIL import ImageTk,Image # import imagetk
@@ -37,8 +38,7 @@ class landing: # landing frame
         player_name.grid(column=0,row=3)
         b = Label(self.landing, text="Enter your username:", font="fixedsys", background='#A288E3')
         b.grid(column=0,row=2)
-        usernamenxt = Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
-        self.usernamenxt.bind('<Return>', lambda e: self.usernamenxt.invoke())
+        Button(self.landing, text="Next", font="fixedsys", padx=10, pady=5,command=printValue).grid(column=0,row=4)
         def levelselectionbutton():
             self.landing.grid_forget()
             levelselection = Frame(root)
@@ -49,19 +49,16 @@ class landing: # landing frame
             a = Label(levelselection, text="Please choose your level!", font="fixedsys 20 bold", background='#A288E3')
             a.grid(column=0,row=1)
             def lvlonee(): # LEVEL ONE (one digit addition and subtraction, worth 1 point per question)
-
                 levelselection.grid_forget()
                 lvlone = Frame(root)
                 lvlone.grid()
                 lvlone['bg'] = '#A288E3'
                 Label(lvlone, text="Level one", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=1,sticky=W)
-
                 global score
                 score = 0
                 global playcount
                 playcount = 0
                 while True:
-                    
                     playcount += 1
                     def questions():
                         a = rand.randrange(1,20,1)
@@ -89,8 +86,8 @@ class landing: # landing frame
                             return score
                         def next(): # next question
                             questions()
+                            samplequestion.grid_forget()
                             return score
-
                         samplequestion = Label(lvlone, text=f'{a} + {b} =', font="fixedsys 20 bold", background='#A288E3')
                         samplequestion.grid(column=1,row=3,sticky=W)
                         answer = Entry(lvlone)
@@ -98,8 +95,6 @@ class landing: # landing frame
                         ansubmit = Button(lvlone, text="Confirm", command=submit)
                         ansubmit.grid(column=1,row=4)
                         return score
-                    
-                    
                     questions()
                     def backlvlone():
                         write=open("write.txt","a")
@@ -110,7 +105,6 @@ class landing: # landing frame
                         lvlone.grid_forget()
                     claimscorebtn = Button(lvlone, text="Return to level selection", command=backlvlone)
                     claimscorebtn.grid(column=20,row=10)
-
                     if playcount == 5:
                         break
                     else: 
@@ -121,7 +115,6 @@ class landing: # landing frame
                 lvltwo.grid()
                 lvltwo['bg'] = '#A288E3'
                 Label(lvltwo, text="Level two", font="fixedsys 20 bold", background='#A288E3').grid(column=1,row=2,sticky=W)
-
                 global score
                 score = 0
                 global playcount
@@ -176,7 +169,6 @@ class landing: # landing frame
                 lvlthree.grid()
                 lvlthree['bg'] = '#A288E3'
                 Label(lvlthree, text="Level three", font='fixedsys 20 bold', background='#A288D3').grid(column=1,row=2,sticky=W)
-
                 global score
                 score = 0
                 global playcount
@@ -239,8 +231,16 @@ class landing: # landing frame
                 levelselection.grid_forget()
                 landing()
                 root.mainloop()
-            newuserbtn = Button(levelselection, text="New User", font="fixedsys 20 bold", command=newuser)
-            newuserbtn.grid(column=10,row=10)
+            newuserbtn = Button(levelselection, text="New User", font="fixedsys", command=newuser)
+            newuserbtn.grid(column=1,row=10)
+            def save():
+                write=open("write.txt","a")
+                write.write(f'********************************')
+                write.write("\n")
+                write.close()
+                root.destroy()
+            savebtn = Button(levelselection, text="Save and exit", font="fixedsys", command=save)
+            savebtn.grid(column=1,row=11)
 landing()
 root.mainloop()
 
