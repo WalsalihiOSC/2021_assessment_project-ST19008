@@ -8,7 +8,7 @@ from student import *
 # config
 root = Tk()
 root.title("Maths Helper")
-root.geometry("450x350")
+root.geometry("450x400")
 root['bg'] = '#FFFFFF'
 
 class landing(): # landing frame
