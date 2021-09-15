@@ -3,15 +3,15 @@ from tkinter import * # import tkinter
 from tkinter import messagebox # import messagebox
 from time import * # import time
 import random as rand # import random
-from student import Student
+from student import *
 
 # config
 root = Tk()
 root.title("Maths Helper")
-root.geometry("400x300")
+root.geometry("450x350")
 root['bg'] = '#FFFFFF'
 
-class landing: # landing frame
+class landing(): # landing frame
     def __init__(self):
         self.landing = Frame(root)
         self.landing.grid()
@@ -46,15 +46,9 @@ class landing: # landing frame
                 __init__(self)
             else:
                 pass
-            pname = Student.name
-            page = Student.age
 
-            #self.name = Student.studentlist[0]
-            #self.age = Student.studentlist[1]
-            #self.score1 = Student.studentlist[2]
-            #self.score2 = Student.studentlist[3]
-            #self.score3 = Student.studentlist[4]
-            #self.student = Student(self.name, self.age, self.score1, self.score2, self.score3)
+            Student.name = pname
+            Student.age = page
 
             write=open("write.txt","a")
             write.write(f'{pname}\n')
@@ -65,14 +59,14 @@ class landing: # landing frame
             next.grid(column=0,row=7,pady=(0,0),padx=(50,0))
 
         player_age = Entry(self.landing, font="arial",highlightthickness=3,highlightbackground='#1dde8f',highlightcolor='#ffd770')
-        player_age.grid(column=0,row=0,pady=(80,0),padx=(50,0),ipadx=10,ipady=6)
+        player_age.grid(column=0,row=0,pady=(200,0),padx=(50,0),ipadx=10,ipady=6)
         playerage_label = Label(self.landing, text="Enter your age:", font="arial",background='#FFFFFF')
-        playerage_label.grid(column=0,row=0,pady=(50,0),padx=(50,0))
+        playerage_label.grid(column=0,row=0,pady=(160,0),padx=(50,0))
 
         player_name = Entry(self.landing, font="arial",highlightthickness=3,highlightbackground='#1dde8f',highlightcolor='#ffd770')
-        player_name.grid(column=0,row=0,pady=(200,0),padx=(50,0),ipadx=10,ipady=6)
+        player_name.grid(column=0,row=0,pady=(80,0),padx=(50,0),ipadx=10,ipady=6)
         b = Label(self.landing, text="Enter your username:", font="arial",background='#FFFFFF')
-        b.grid(column=0,row=0,pady=(160,0),padx=(50,0))
+        b.grid(column=0,row=0,pady=(50,0),padx=(50,0))
 
         Button(self.landing, text="Done", font="arial",background="#FFFFFF",activebackground='#1dde8f',command=printValue).grid(column=0,row=4,padx=(60,0),pady=(10,0))
         def levelselectionbutton():
@@ -84,23 +78,47 @@ class landing: # landing frame
             b.grid(column=0,row=0,padx=90)
             a = Label(levelselection, text="Please choose your level!", font="arial 20 bold", background='#1dde8f')
             a.grid(column=0,row=1)
+            Label(levelselection,text=f'Score: {Student.score}',font="arial 10 bold").grid(column=0,row=1,pady=(70,0))
+
             def lvlonee(): # LEVEL ONE
                 levelselection.grid_forget()
                 lvlone = Frame(root)
                 lvlone.grid()
                 lvlone['bg'] = '#FFFFFF'
                 Label(lvlone, text="Level one: Addition", font="arial 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
+
+                def trieslimit():
+                    if tries > 10:
+                        messagebox.showwarning("Error",f"You've reached the question limit with a final score of {score}. Do not retry as your score will reset.")
+                        lvlone.grid_forget()
+                        levelselectionbutton()
+                
                 global score
                 score = 0
-                global playcount
-                playcount = 0
-                while True:
-                    playcount += 1
-                    def questions():
-                        a = rand.randrange(1,20,1)
-                        b = rand.randrange(1,20,1)
-                        def answercheck(): # check answer and give result
+                global tries
+                tries = 0
 
+
+
+                while True:
+
+                    def questions():
+                        a = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+                        b = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+
+                        questionsleft = 10 - Student.tries
+                        Label(lvlone,text=f"You have {questionsleft} questions left.").grid(column=1,row=8,sticky=W,pady=(20,0))
+
+                        global tries
+                        tries += 1
+                        print('tries')
+                        print(tries)
+                        Student.tries = tries
+                        trieslimit()
+
+                        print(a)
+                        print(b)
+                        def answercheck(): # check answer and give result
                             c = a + b
                             d = answer.get()
                             global score
@@ -115,12 +133,14 @@ class landing: # landing frame
 
                             if d == c:
                                 score += 1
-                                correct = Label(lvlone, text=f"Correct! You have {score} points.").grid(column=1,row=1,sticky=W)
+                                correct = Label(lvlone, text=f"Correct!",background='#1dde8f').grid(column=1,row=10,sticky=W,pady=(20,0))
                                 ansubmit.grid_forget()
+                                Student.score = score
+                                print(score)
                                 return correct, score
                             else: # incorrect 
                                 score -= 1
-                                Label(lvlone, text=f"Incorrect, You have {score} points.").grid(column=1,row=1,sticky=W)
+                                Label(lvlone, text=f"Incorrect.",background='red').grid(column=1,row=10,sticky=W,pady=(20,0))
                                 return score
                         def submit(): # submit answer, call answercheck
                             answercheck()
@@ -142,7 +162,6 @@ class landing: # landing frame
                         return score
                     questions()
                     def backlvlone():
-                        score = Student.s1
                         write=open("write.txt","a")
                         write.write(f'Level one: {score}\n')
                         write.write("\n")
@@ -151,7 +170,7 @@ class landing: # landing frame
                         lvlone.grid_forget()
                     claimscorebtn = Button(lvlone, text="Return to level selection", command=backlvlone)
                     claimscorebtn.grid(column=2,row=10)
-                    if playcount == 5:
+                    if Student.tries == 5:
                         break
                     else: 
                         break 
@@ -163,13 +182,32 @@ class landing: # landing frame
                 Label(lvltwo, text="Level two: Multiplication", font="arial 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
                 global score
                 score = 0
-                global playcount
-                playcount = 0
+                global tries
+                tries = 0
+
+                def trieslimit():
+                    if tries > 10:
+                        messagebox.showwarning("Error",f"You've reached the question limit with a final score of {score}. Do not retry as your score will reset.")
+                        lvltwo.grid_forget()
+                        levelselectionbutton()
+                
+                Student.tries = 0
                 while True:
-                    playcount += 1
+                    Student.tries += 1
                     def questions():
-                        a = rand.randrange(1,10,1)
-                        b = rand.randrange(1,10,1)
+                        a = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+                        b = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+
+                        questionsleft = 10 - Student.tries
+                        Label(lvltwo,text=f"You have {questionsleft} questions left.").grid(column=1,row=8,sticky=W,pady=(20,0))
+
+                        global tries
+                        tries += 1
+                        print('tries')
+                        print(tries)
+                        Student.tries = tries
+                        trieslimit()
+
                         def answercheck(): # check answer and give result
                             c = a * b
                             d = answer.get()
@@ -183,12 +221,14 @@ class landing: # landing frame
                             c = int(c)
                             if d == c:
                                 score += 1
-                                correct = Label(lvltwo, text=f"Correct! You have {score} points.").grid(column=1,row=1,sticky=W)
+                                correct = Label(lvltwo, text=f"Correct!",background='#1dde8f').grid(column=1,row=10,sticky=W,pady=(20,0))
+                                Student.score = score
                                 ansubmit.grid_forget()
                                 return correct, score
                             else: # incorrect 
                                 score -= 1
-                                Label(lvltwo, text=f"Incorrect, You have {score} points.").grid(column=1,row=1,sticky=W)
+                                Label(lvltwo, text=f"Incorrect.",background='red').grid(column=1,row=10,sticky=W,pady=(20,0))
+                                Student.score = score
                                 return score
                         def submit(): # submit answer, call answercheck
                             answercheck()
@@ -209,7 +249,6 @@ class landing: # landing frame
                         return score
                     questions()
                     def backlvltwo():
-                        score = Student.s2
                         write=open("write.txt","a")
                         write.write(f'Level two: {score}\n')
                         write.write("\n")
@@ -218,7 +257,7 @@ class landing: # landing frame
                         lvltwo.grid_forget()
                     claimscorebtn = Button(lvltwo, text="Return to level selection", command=backlvltwo)
                     claimscorebtn.grid(column=2,row=10)
-                    if playcount == 5:
+                    if Student.tries == 5:
                         break
                     else: 
                         break             
@@ -230,13 +269,32 @@ class landing: # landing frame
                 Label(lvlthree, text="Level three: Division", font="arial 20 bold", background='#FFFFFF').grid(column=1,row=1,sticky=W,pady=(0,50))
                 global score
                 score = 0
-                global playcount
-                playcount = 0
+                global tries
+                tries = 0
+
+                def trieslimit():
+                    if tries > 10:
+                        messagebox.showwarning("Error",f"You've reached the question limit with a final score of {score}. Do not retry as your score will reset.")
+                        lvlthree.grid_forget()
+                        levelselectionbutton()
+                
+                Student.tries = 0
                 while True:
-                    playcount += 1
+                    Student.tries += 1
                     def questions():
-                        a = rand.randrange(1,20,1)
-                        b = rand.randrange(1,5,1)
+                        a = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+                        b = rand.randrange(1,Student(pname,page,score).difficulty(),1)
+
+                        questionsleft = 10 - Student.tries
+                        Label(lvlthree,text=f"You have {questionsleft} questions left.").grid(column=1,row=8,sticky=W,pady=(20,0))
+
+                        global tries
+                        tries += 1
+                        print('tries')
+                        print(tries)
+                        Student.tries = tries
+                        trieslimit()
+
                         def answercheck(): # check answer and give result
                             c = a / b
                             d = answer.get()
@@ -250,12 +308,14 @@ class landing: # landing frame
                             c = int(c)
                             if d == c:
                                 score += 1
-                                correct = Label(lvlthree, text=f"Correct! You have {score} points.").grid(column=1,row=1,sticky=W)
+                                correct = Label(lvlthree, text=f"Correct!",background='#1dde8f').grid(column=1,row=10,sticky=W,pady=(20,0))
+                                Student.score = score
                                 ansubmit.grid_forget()
                                 return correct, score
                             else: # incorrect 
                                 score -= 1
-                                Label(lvlthree, text=f"Incorrect, You have {score} points.").grid(column=1,row=1,sticky=W)
+                                Label(lvlthree, text=f"Incorrect.",background='red').grid(column=1,row=10,sticky=W,pady=(20,0))
+                                Student.score = score
                                 return score
                         def submit(): # submit answer, call answercheck
                             answercheck()
@@ -276,7 +336,6 @@ class landing: # landing frame
                         return score
                     questions()
                     def backlvlthree():
-                        score = Student.s3
                         write=open("write.txt","a")
                         write.write(f'Level one: {score}\n')
                         write.write("\n")
@@ -285,15 +344,15 @@ class landing: # landing frame
                         lvlthree.grid_forget()
                     claimscorebtn = Button(lvlthree, text="Return to level selection", command=backlvlthree)
                     claimscorebtn.grid(column=2,row=10)                    
-                    if playcount == 5:
+                    if Student.tries == 5:
                         break
                     else: 
                         break 
-            lvlone = Button(levelselection,text="Level 1", font="arial", activebackground='#1dde8f', command=lvlonee)
+            lvlone = Button(levelselection,text="Addition", font="arial", activebackground='#1dde8f', command=lvlonee)
             lvlone.grid(column=0,row=2,pady=(10,0))
-            leveltwo = Button(levelselection,text="Level 2", font="arial", activebackground='#1dde8f', command=lvltwo)
+            leveltwo = Button(levelselection,text="Multiplication", font="arial", activebackground='#1dde8f', command=lvltwo)
             leveltwo.grid(column=0,row=3,pady=(10,0))
-            levelthree = Button(levelselection,text="Level 3", font="arial", activebackground='#1dde8f', command=lvlthree)
+            levelthree = Button(levelselection,text="Division", font="arial", activebackground='#1dde8f', command=lvlthree)
             levelthree.grid(column=0,row=4,pady=(10,0))
             def newuser():
                 write=open("write.txt","a")
