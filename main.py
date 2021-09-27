@@ -19,7 +19,7 @@ class landing(): # landing frame
         a = Label(self.landing, text="MathsHelper", font="arial 30 bold", background="#1dde8f")
         a.grid(column=0,row=0,padx=(43,0),pady=(0,90))
 
-        Label(self.landing, text="Welcome to", font="arial 15", background="white").grid(column=0,row=0,padx=(23,0),pady=(0,170))
+        Label(self.landing, text="Welcome to Ormiston Computing's", font="arial 15", background="white").grid(column=0,row=0,padx=(23,0),pady=(0,170))
 
         def printValue():
             global pname
@@ -61,12 +61,12 @@ class landing(): # landing frame
         player_age = Entry(self.landing, font="arial",highlightthickness=3,highlightbackground='#1dde8f',highlightcolor='#ffd770')
         player_age.grid(column=0,row=0,pady=(200,0),padx=(50,0),ipadx=10,ipady=6)
         playerage_label = Label(self.landing, text="Enter your age:", font="arial",background='#FFFFFF')
-        playerage_label.grid(column=0,row=0,pady=(160,0),padx=(50,0))
+        playerage_label.grid(column=0,row=0,pady=(160,10),padx=(50,0))
 
         player_name = Entry(self.landing, font="arial",highlightthickness=3,highlightbackground='#1dde8f',highlightcolor='#ffd770')
         player_name.grid(column=0,row=0,pady=(80,0),padx=(50,0),ipadx=10,ipady=6)
         b = Label(self.landing, text="Enter your username:", font="arial",background='#FFFFFF')
-        b.grid(column=0,row=0,pady=(50,0),padx=(50,0))
+        b.grid(column=0,row=0,pady=(30,0),padx=(50,0))
 
         Button(self.landing, text="Done", font="arial",background="#FFFFFF",activebackground='#1dde8f',command=printValue).grid(column=0,row=4,padx=(60,0),pady=(10,0))
         def levelselectionbutton():
@@ -97,8 +97,6 @@ class landing(): # landing frame
                 score = 0
                 global tries
                 tries = 0
-
-
 
                 while True:
 

@@ -23,6 +23,3 @@ class Student:
         else:
             randnum = 30
         return randnum
-
-
-
